@@ -1,0 +1,14 @@
+version: 2.1
+
+orbs:
+  docker: circleci/docker@2.4.0  # Utilisation de l'orb Docker officielle de CircleCI
+
+workflows:
+  version: 2
+  build-and-push:
+    jobs:
+      - docker/build-and-push:
+          image: "$DOCKER_USER/node-js-sample"
+          tag: "latest"
+          registry: "docker.io"
+          login: true
