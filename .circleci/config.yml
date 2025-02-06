@@ -1,24 +1,13 @@
 version: 2.1
 
 orbs:
-  docker: circleci/docker@2.8.2  # Utilisation de l'orb officiel Docker
-
-jobs:
-  build-and-push:
-    executor: docker/docker  # Utilisation d'un exécuteur Docker standard
-    steps:
-      - checkout  # Clone le dépôt
-
-      - setup_remote_docker  # Active Docker sans version spécifique
-
-      - docker/publish:
-          image: "$DOCKER_USER/node-js-sample"
-          tag: "latest"
-          registry: "docker.io"
-          login: true  # Gère automatiquement le login Docker
+  docker: circleci/docker@2.8.2  # Utilisation de la version 2.8.2 de l'orbe Docker
 
 workflows:
-  version: 2
-  build-and-push:
+  build-docker-image:
     jobs:
-      - build-and-push
+      - docker/publish:
+          docker-password: $DOCKER_PASS  # Variable pour le mot de passe Docker Hub
+          docker-username: $DOCKER_USER  # Variable pour le nom d'utilisateur Docker Hub
+          image: "$DOCKER_USER/node-js-sample"  # Image Docker à builder
+          tag: "latest"  # Tag de l'image (ici "latest", ou tu peux utiliser un tag dynamique comme $CIRCLE_BUILD_NUM)
