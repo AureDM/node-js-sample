@@ -1,14 +1,29 @@
 version: 2.1
 
 orbs:
-  docker: circleci/docker@2.5.0  # Utilisation de l'orb Docker officielle de CircleCI
+  docker: circleci/docker@2.4.0  # Utilisation de l'orb officiel Docker
 
-workflows:
-  version: 2
+jobs:
   build-and-push:
-    jobs:
-      - docker/build-and-push:
+    executor: docker/docker  # Exécuter le job dans un environnement Docker
+    steps:
+      - checkout  # Clone le dépôt
+
+      - setup_remote_docker:
+          version: 20.10.14
+
+      - docker/build:
+          image: "$DOCKER_USER/node-js-sample"
+          tag: "latest"
+
+      - docker/push:
           image: "$DOCKER_USER/node-js-sample"
           tag: "latest"
           registry: "docker.io"
           login: true
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build-and-push
