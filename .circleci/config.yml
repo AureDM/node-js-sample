@@ -17,15 +17,15 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            docker build -t your_dockerhub_username/node-js-sample .
+            docker build -t auredm/node-js-sample .
 
       # Pousser l'image Docker vers Docker Hub (ou un autre registre)
       - run:
           name: Push Docker image to Docker Hub
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker tag your_dockerhub_username/node-js-sample your_dockerhub_username/node-js-sample:latest
-            docker push your_dockerhub_username/node-js-sample:latest
+            docker tag auredm/node-js-sample your_dockerhub_username/node-js-sample:latest
+            docker push auredm/node-js-sample:latest
 
 workflows:
   version: 2
