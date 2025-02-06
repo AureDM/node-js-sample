@@ -3,7 +3,7 @@ name: Build and Publish Docker Image
 on:
   push:
     branches:
-      - main  # Le workflow se lance sur chaque push sur la branche 'main'
+      - master  # Le workflow se lance sur chaque push sur la branche 'main'
   # Optionnellement, tu peux ajouter un trigger sur des tags comme :
   # tags:
   #   - 'v*'
