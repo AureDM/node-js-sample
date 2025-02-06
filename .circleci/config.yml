@@ -12,7 +12,19 @@ jobs:
           name: Build Docker image
           command: |
             docker build -t $DOCKER_USER/node-js-sample .
+            
+      # Lancer l'application dans le conteneur Docker
+      - run:
+          name: Run Docker container
+          command: |
+            docker run -d -p 8080:8080 --name nodejs-sample $DOCKER_USER/node-js-sample
 
+      # Vérifier la route / de l'application avec curl
+      - run:
+          name: Verify application is running
+          command: |
+            curl -f http://localhost:8080/ || (echo "Application failed to start" && exit 1)
+            
       # Pousser l'image Docker vers Docker Hub (ou un autre registre)
       - run:
           name: Push Docker image to Docker Hub
