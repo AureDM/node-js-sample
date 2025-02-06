@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  docker: circleci/docker@2.4.0  # Utilisation de l'orb Docker officielle de CircleCI
+  docker: circleci/docker@2.5.0  # Utilisation de l'orb Docker officielle de CircleCI
 
 workflows:
   version: 2
